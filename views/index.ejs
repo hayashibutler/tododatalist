@@ -1,0 +1,58 @@
+<html ng-app="app.todos">
+    <head>
+        <title>Todo List</title>
+        <!-- load cdn style bootstrap -->
+        <link rel="stylesheet" href="//pro.fontawesome.com/releases/v5.10.0/css/all.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.10.2/css/xeditable.min.css"/>
+        
+        <!-- load cn scripts -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.10.2/js/xeditable.min.js"></script>
+
+        <!-- load app -->
+        <script src="/assets/js/main/app.js"></script>
+        <script src="/assets/js/main/services/svTodos.js"></script>
+
+        <!-- load style css -->
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+    <body ng-controller="todoController">
+        <div class="container">
+            <div class="jumbotron text-center">
+                <h1>{{ appName }} <span class="label label-info">{{ todos.length }}</span></h1>
+            </div>
+ 
+            <div id="todo-list" class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="checkbox" ng-repeat="todo in todos">
+                        <input type="checkbox" ng-model="todo.isDone" ng-change="updateTodo(todo)">
+                        <span ng-class="{ strike: todo.isDone}" editable-text="todo.text" e-form="textBtnForm" onaftersave="updateTodo(todo)">{{todo.text}}</span><span></span>
+                        <a ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"><i class="fas fa-edit fa-sm"></i></a>
+                        <a ng-click="deleteTodo(todo)"><i class="fas fa-trash-alt fa-sm"></i></a>
+                    </div>
+                    <div class="text-center" ng-show="loading">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div id="todo-form" class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" ng-model="formData.text" class="form-control input-lg text-center" placeholder="What do you want to do?">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()" ng-disabled="!formData.text">Add</button>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </body>
+    <div class="container footer jumbotron">
+        <div>Đây là dự án đầu tiên mình hoàn thành, dựa trên bài học tại kênh youtube <a href="https://www.youtube.com/watch?v=OR0hBEUk4wI&list=PLqnlyu33Xy-6g7IqU5-3BXOfewcJKoL08&index=1" target="_blank">TK Vlogs</a></div>
+        <div>Ngày 25.08.2021. @TranLam</div>
+    </div>
+</html>
